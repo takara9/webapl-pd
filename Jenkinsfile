@@ -57,8 +57,8 @@ pipeline {
       steps {
         script {
           sh 'kubectl cluster-info --kubeconfig $KUBECONFIG'
-          sh 'sed s/__BUILDNUMBER__/$BUILD_NUMBER/ webapl-pd.yaml > webapl-pd-build.yaml'
-          sh 'kubectl apply -f webapl-pd-build.yaml --kubeconfig $KUBECONFIG'
+          sh 'sed s/__BUILDNUMBER__/$BUILD_NUMBER/ deploy.yaml > webapl-pd.yaml'
+          sh 'kubectl apply -f webapl-pd.yaml --kubeconfig $KUBECONFIG'
         }
       }
     }
