@@ -41,6 +41,8 @@ GitLabからCloneして
 
 ## Kubernetesの名前空間準備とkubeconfigのファイル作成
 
+ネームスペースを作って、デフォルトを切り替える
+
 ~~~
 kubectl create ns webapl-pd
 kubectl config set-context webapl-pd --namespace=webapl-pd --cluster=kubernetes --user=admin
@@ -48,11 +50,23 @@ kubectl config use-context webapl-pd
 kubectl config get-contexts
 ~~~
 
+確認結果
+
+~~~
 tkr@hmc:~/k8s1$ kubectl config get-contexts
 CURRENT   NAME        CLUSTER      AUTHINFO   NAMESPACE
           ceph        kubernetes   admin      ceph-csi
           default     kubernetes   admin      
 *         webapl-pd   kubernetes   admin      webapl-pd
+~~~
+
+このkubeconfigファイルをJenkinsへアップロードする。
+
+~~~
+tkr@hmc:~/k8s1$ echo $KUBECONFIG
+/home/tkr/k8s1/admin.kubeconfig-k8s1
+~~~
+
 
 
 

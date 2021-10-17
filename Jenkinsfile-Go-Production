@@ -3,7 +3,7 @@ pipeline {
   environment {
     registry = "harbor.labo.local/tkr/webapl-pd"
     dockerImage = ""
-    KUBECONFIG = credentials('webapl-pd-ns')
+    KUBECONFIG = credentials('Prod-k8s3-webapl-pd')
   }
 
   agent any
@@ -17,16 +17,6 @@ pipeline {
       }
     }
 
-    stage('コンテナイメージのビルド') {
-      steps {
-        script {
-          docker.withRegistry('https://harbor.labo.local/', 'tkr-login') {
-            dockerImage = docker.build registry + ":$BUILD_NUMBER"	    
-          }
-        }
-      }
-    }
-
     stage('コンテナイメージの脆弱性検査') {
       steps {
         script {
@@ -34,7 +24,6 @@ pipeline {
         }
       }
     }
-
 
     stage('コンテナの単体テスト') {
       steps {
@@ -44,23 +33,11 @@ pipeline {
       }
     }
 
-
-    stage('コンテナレジストリへプッシュ') {
-      steps {
-        script {
-          docker.withRegistry("https://harbor.labo.local","harbor") {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-
     stage('K8sクラスタへのデプロイ') {
       steps {
         script {
           sh 'kubectl cluster-info --kubeconfig $KUBECONFIG'
-          sh 'sed s/__BUILDNUMBER__/$BUILD_NUMBER/ deploy.yaml > webapl-pd.yaml'
-          sh 'kubectl apply -f webapl-pd.yaml --kubeconfig $KUBECONFIG'
+          sh 'kubectl apply -f webapl-pd-prod.yaml --kubeconfig $KUBECONFIG'
         }
       }
     }
