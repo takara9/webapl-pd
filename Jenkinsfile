@@ -2,7 +2,8 @@ pipeline {
 
   environment {
     registry = "harbor.labo.local/tkr/webapl-pd"
-    dockerImage = ""
+    dockerImage  = ""
+    dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
   }
 
@@ -20,7 +21,8 @@ pipeline {
     stage('コンテナイメージのビルド') {
       steps {
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage  = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage2 = docker.build registry + ":latest"
         }
       }
     }
@@ -48,6 +50,9 @@ pipeline {
         script {
           docker.withRegistry("https://harbor.labo.local","harbor") {
             dockerImage.push()
+          }
+          docker.withRegistry("https://harbor.labo.local","harbor") {
+            dockerImage2.push()
           }
         }
       }
