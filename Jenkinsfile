@@ -3,7 +3,7 @@ pipeline {
   environment {
     registry = "harbor.labo.local/tkr/webapl-pd"
     dockerImage = ""
-    KUBECONFIG = credentials('test-k8s1-conf')
+    KUBECONFIG = credentials('test-k8s1-webapl-pd')
   }
 
   agent any

@@ -39,6 +39,25 @@ GitLabからCloneして
 
 
 
+## Kubernetesの名前空間準備とkubeconfigのファイル作成
+
+~~~
+kubectl create ns webapl-pd
+kubectl config set-context webapl-pd --namespace=webapl-pd --cluster=kubernetes --user=admin
+kubectl config use-context webapl-pd
+kubectl config get-contexts
+~~~
+
+tkr@hmc:~/k8s1$ kubectl config get-contexts
+CURRENT   NAME        CLUSTER      AUTHINFO   NAMESPACE
+          ceph        kubernetes   admin      ceph-csi
+          default     kubernetes   admin      
+*         webapl-pd   kubernetes   admin      webapl-pd
+
+
+
+
+
 
 
 
