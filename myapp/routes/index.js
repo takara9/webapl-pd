@@ -6,6 +6,7 @@ var os = require('os');
 router.get('/', function(req, res, next) {
     var networkInterfaces = os.networkInterfaces();        
     res.render('index', {
+	title: "POD問題判別用コンテナ",
 	hostname: process.env.HOSTNAME,
 	ip: networkInterfaces.eth0[0].cidr,	
 	host: req.headers.host,
