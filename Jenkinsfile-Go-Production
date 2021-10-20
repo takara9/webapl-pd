@@ -36,6 +36,7 @@ pipeline {
     stage('K8sクラスタへのデプロイ') {
       steps {
         script {
+	  sh 'env'
           sh 'kubectl cluster-info --kubeconfig $KUBECONFIG'
           sh 'kubectl apply -f webapl-pd-prod.yaml --kubeconfig $KUBECONFIG'
         }
