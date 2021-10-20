@@ -5,7 +5,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = "104"
+    TAG = "105"
   }
 
   agent any
