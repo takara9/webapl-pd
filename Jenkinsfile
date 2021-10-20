@@ -5,6 +5,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
+    TAG = "100"
   }
 
   agent any
@@ -21,8 +22,7 @@ pipeline {
     stage('コンテナイメージのビルド') {
       steps {
         script {
-          dockerImage  = docker.build registry + ":$BUILD_NUMBER"
-          dockerImage2 = docker.build registry + ":latest"
+          dockerImage  = docker.build registry + ":$TAG"
         }
       }
     }
@@ -62,6 +62,7 @@ pipeline {
       steps {
         script {
           sh 'kubectl cluster-info --kubeconfig $KUBECONFIG'
+	  sh 'sed s/__BUILDNUMBER__/$TAG/ deploy.yaml > webapl-pd.yaml'
           sh 'kubectl apply -f webapl-pd.yaml --kubeconfig $KUBECONFIG'
         }
       }
