@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 	ip: networkInterfaces.eth0[0].cidr,	
 	host: req.headers.host,
 	agent: req.headers['user-agent'],
+	env: process.env
     });
 });
 
