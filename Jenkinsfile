@@ -51,9 +51,6 @@ pipeline {
           docker.withRegistry("https://harbor.labo.local","harbor") {
             dockerImage.push()
           }
-          docker.withRegistry("https://harbor.labo.local","harbor") {
-            dockerImage2.push()
-          }
         }
       }
     }
