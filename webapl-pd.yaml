@@ -1,3 +1,6 @@
+##
+## テストアプリ
+##
 ---
 ## デプロイメント 
 apiVersion: apps/v1
@@ -17,7 +20,7 @@ spec:
       containers:
       - name: webapl-pd
         image: harbor.labo.local/tkr/webapl-pd:100
-        imagePullPolicy: Always	
+        imagePullPolicy: Always
 ---
 ## サービス
 apiVersion: v1
