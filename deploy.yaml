@@ -20,7 +20,7 @@ spec:
       containers:
       - name: webapl-pd
         image: harbor.labo.local/tkr/webapl-pd:__BUILDNUMBER__
-        imagePullPolicy: Always
+        imagePullPolicy: AlwaysPullImages
 ---
 ## サービス
 apiVersion: v1
