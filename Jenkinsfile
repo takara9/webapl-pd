@@ -13,7 +13,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = get_tag()
+    TAG = ""
   }
 
 
@@ -22,6 +22,9 @@ pipeline {
   stages {
 
     stage('GitLabからソースコード取得') {
+      environment {
+        TAG =  get_tag() 
+      }
       steps {
         echo 'Notify GitLab'
         updateGitlabCommitStatus name: 'build', state: 'pending'
