@@ -5,7 +5,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = $(curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1)
+    TAG = `$(curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1)`
   }
 
   agent any
