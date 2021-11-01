@@ -1,3 +1,11 @@
+def get-tag() {
+  sh (
+     script: "curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1",
+     returnStdout: true
+  )
+} 
+
+
 pipeline {
 
   environment {
@@ -5,8 +13,10 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = `$(curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1)`
+    TAG = get-tag()
   }
+
+
 
   agent any
   stages {
