@@ -5,7 +5,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = "109"
+    TAG = $(curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1)
   }
 
   agent any
@@ -16,6 +16,7 @@ pipeline {
         echo 'Notify GitLab'
         updateGitlabCommitStatus name: 'build', state: 'pending'
         updateGitlabCommitStatus name: 'build', state: 'success'
+	echo $TAG
       }
     }
 
