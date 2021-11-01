@@ -29,7 +29,7 @@ pipeline {
         echo 'Notify GitLab'
         updateGitlabCommitStatus name: 'build', state: 'pending'
         updateGitlabCommitStatus name: 'build', state: 'success'
-	echo ${TAG}
+	echo "${TAG}"
       }
     }
 
