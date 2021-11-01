@@ -29,14 +29,14 @@ pipeline {
         echo 'Notify GitLab'
         updateGitlabCommitStatus name: 'build', state: 'pending'
         updateGitlabCommitStatus name: 'build', state: 'success'
-	echo $TAG
+	echo ${TAG}
       }
     }
 
     stage('コンテナイメージのビルド') {
       steps {
         script {
-          dockerImage  = docker.build registry + ":$TAG"
+          dockerImage  = docker.build registry + ":${TAG}"
         }
       }
     }
