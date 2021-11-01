@@ -1,4 +1,4 @@
-def get-tag() {
+def get_tag() {
   sh (
      script: "curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1",
      returnStdout: true
@@ -13,7 +13,7 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG = get-tag()
+    TAG = get_tag()
   }
 
 
