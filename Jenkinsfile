@@ -1,6 +1,13 @@
 def get_tag() {
   sh (
-     script: "curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/test1",
+     script: "curl -s http://ms-counter.ms-counter.k8s1.labo.local/get/webapl-pd",
+     returnStdout: true
+  )
+} 
+
+def inc_tag() {
+  sh (
+     script: "curl -s http://ms-counter.ms-counter.k8s1.labo.local/inc/webapl-pd",
      returnStdout: true
   )
 } 
@@ -13,14 +20,11 @@ pipeline {
     dockerImage  = ""
     dockerImage2 = ""    
     KUBECONFIG = credentials('test-k8s1-webapl-pd')
-    TAG =  get_tag()     
+    TAG =  inc_tag()     
   }
-
-
 
   agent any
   stages {
-
     stage('GitLabからソースコード取得') {
       steps {
         echo 'Notify GitLab'
@@ -46,7 +50,6 @@ pipeline {
       }
     }
 
-
     stage('コンテナの単体テスト') {
       steps {
         script {
@@ -54,7 +57,6 @@ pipeline {
         }
       }
     }
-
 
     stage('コンテナレジストリへプッシュ') {
       steps {
